@@ -12,15 +12,15 @@ export default function Home() {
   const [feelingLuckyStatus, setFeelingLuckyStatus] = useState("");
   const inputRef = useRef();
 
-  const parseRepo = (text) => {
+  function parseRepo(text) {
     const { owner = "", name = "" } = gh(text) || {};
     return {
       owner,
       repo: name
     };
-  };
+  }
 
-  const getRepoDetails = async (text) => {
+  async function getRepoDetails(text) {
     await setSearchStatus("loading");
     const details = parseRepo(text);
     if (details && details.repo && details.owner) {
@@ -31,17 +31,17 @@ export default function Home() {
     } else {
       await setSearchStatus("");
     }
-  };
+  }
 
-  const handleInputKeyUp = async (e) => {
+  async function handleInputKeyUp(e) {
     const value = e.target.value || "";
     await setInput(value);
     if (e.key === "Enter") {
       getRepoDetails(value);
     }
-  };
+  }
 
-  const handleFeelingLucky = async () => {
+  async function handleFeelingLucky() {
     if (feelingLuckyStatus !== "loading") {
       await setFeelingLuckyStatus("loading");
 
@@ -58,7 +58,7 @@ export default function Home() {
         await setFeelingLuckyStatus("");
       }
     }
-  };
+  }
 
   useEffect(() => {
     inputRef.current.focus();

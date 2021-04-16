@@ -6,22 +6,22 @@ import "../styles/bulma.sass";
 import "../styles/globals.css";
 
 const GITHUB_BASE_URL = "https://api.github.com/graphql";
-const GITHUB_PERSONAL_ACCESS_TOKEN = "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";
 
 const httpLink = new HttpLink({
   uri: GITHUB_BASE_URL,
   headers: {
-    authorization: `Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}`
+    authorization: `Bearer ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`
   }
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    console.log("🚀 ~ file: _app.js ~ line 20 ~ errorLink ~ graphQLErrors", graphQLErrors);
-  graphQLErrors.forEach(({ message, locations, path }) =>
-    console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
-  );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+    graphQLErrors.forEach(({ message, locations, path }) => {
+      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+    });
+  if (networkError) {
+    console.log(`[Network error]: ${networkError}`);
+  }
 });
 
 const link = ApolloLink.from([errorLink, httpLink]);

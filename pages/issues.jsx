@@ -12,7 +12,6 @@ import Empty from "../components/issues/states/Empty";
 
 export default function Issues() {
   const router = useRouter();
-
   const { owner = "", repo = "" } = router.query || {};
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -24,10 +23,6 @@ export default function Issues() {
   });
 
   async function handleSetSearchFilters(searchText) {
-    console.log(
-      "🚀 ~ file: issues.jsx ~ line 23 ~ handleSetSearchFilters ~ searchText",
-      searchText
-    );
     const finalFilters = {};
     const values = (searchText || "")
       .trim()
@@ -46,15 +41,10 @@ export default function Issues() {
         finalFilters[value[0]] = value[1];
       }
     });
-    console.log(
-      "🚀 ~ file: issues.jsx ~ line 51 ~ handleSetSearchFilters ~ finalFilters",
-      finalFilters
-    );
     await setSearchFilters(finalFilters);
   }
 
   async function handleSetTabState(tab) {
-    console.log("🚀 ~ file: issues.jsx ~ line 20 ~ handleSetTabType ~ tab", tab);
     if (tab === "openIssues") {
       await setTabState({
         tabType: tab,
@@ -70,7 +60,6 @@ export default function Issues() {
         tabType: tab
       });
     }
-    console.log("tabState", tabState);
   }
 
   const GET_REPO_AND_ISSUES = gql`
@@ -190,11 +179,8 @@ export default function Issues() {
       }
     }
   `;
-  console.log("GET_REPO_AND_ISSUES", GET_REPO_AND_ISSUES);
 
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    console.log("🚀 ~ file: issues.jsx ~ line 60 ~ updateQuery ~ fetchMoreResult", fetchMoreResult);
-    console.log("🚀 ~ file: issues.jsx ~ line 60 ~ updateQuery ~ previousResult", previousResult);
+  function updateQuery(previousResult, { fetchMoreResult }) {
     if (!fetchMoreResult) {
       return previousResult;
     }
@@ -221,9 +207,8 @@ export default function Issues() {
         ]
       };
     }
-    console.log("🚀 ~ file: issues.jsx ~ line 111 ~ updateQuery ~ result", finalQuery);
     return finalQuery;
-  };
+  }
 
   return (
     <Layout>
@@ -239,19 +224,15 @@ export default function Issues() {
           }}
           notifyOnNetworkStatusChange={true}>
           {({ data, loading, error, fetchMore }) => {
-            console.log("🚀 ~ file: issues.jsx ~ line 41 ~ Issues ~ loading", loading);
             if (error) {
               return <Error owner={owner} repo={repo} />;
             }
-            console.log("🚀 ~ file: issues.jsx ~ line 40 ~ Issues ~ error", error);
 
             const { repository } = data || {};
 
             if (loading && isFirstLoad) {
               return <Loading owner={owner} repo={repo} />;
             }
-
-            console.log("🚀 ~ file: issues.jsx ~ line 48 ~ Issues ~ data", data);
 
             if (!repository) {
               return <Empty owner={owner} repo={repo} isRepoEmpty={true} />;
@@ -260,8 +241,6 @@ export default function Issues() {
             if (!repository.totalIssues) {
               return <Empty owner={owner} repo={repo} isIssuesEmpty={true} />;
             }
-
-            console.log("🚀 ~ file: issues.jsx ~ line 47 ~ Issues ~ data", data);
 
             return (
               <>
