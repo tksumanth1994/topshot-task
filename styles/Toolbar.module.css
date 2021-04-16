@@ -1,0 +1,24 @@
+.tab a {
+  color: #7384af;
+}
+
+.tab a:hover {
+  background-color: #7384af !important;
+  color: #f0f2f6 !important;
+}
+
+.active a {
+  background-color: #7384af !important;
+  border-color: #7384af !important;
+  color: #f0f2f6 !important;
+}
+
+
+.icon {
+  fill: #7384af;
+}
+
+.tab a:hover .icon,
+.active a .icon {
+  fill: #f0f2f6;
+}

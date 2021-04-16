@@ -29,11 +29,7 @@
   width: auto;
 }
 
-.luckyloader {
+.loader {
   height: 1.6rem;
   width: auto;
-}
-
-.pointer {
-  cursor: pointer;
 }

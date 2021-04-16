@@ -40,15 +40,7 @@ export default function Home() {
     if (feelingLuckyStatus !== "loading") {
       await setFeelingLuckyStatus("loading");
 
-      // Calculate date for 7 days ago
-      const sevenDaysAgo = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
-      const formatYear = sevenDaysAgo.getFullYear();
-      const formatMonth = ("0" + (sevenDaysAgo.getMonth() + 1)).slice(-2);
-      const formatDate = ("0" + sevenDaysAgo.getDate()).slice(-2);
-      const formatFullDate = `${formatYear}-${formatMonth}-${formatDate}`;
-
-      // Getting trending repos since last 7 days
-      const reposList = await getRepos(formatFullDate);
+      const reposList = await getRepos();
       if (reposList?.data?.items?.length) {
         const randomNum = Math.floor(Math.random() * reposList.data.items.length);
         const repo = reposList.data.items[randomNum];
@@ -107,14 +99,14 @@ export default function Home() {
             <span
               onClick={handleInputChange}
               onKeyUp={handleInputChange}
-              className={`icon is-right ${styles.pointer}`}
+              className="icon is-right is-clickable"
               role="button"
               tabIndex="0">
               {searchStatus === "loading" ? (
                 <img
                   src="/loader.svg"
                   className={`${feelingLuckyStatus === "loading" ? "" : "is-invisible"} ${
-                    styles.luckyloader
+                    styles.loader
                   }`}
                   alt="loading"></img>
               ) : (
@@ -143,7 +135,7 @@ export default function Home() {
               <img
                 src="/loader.svg"
                 className={`${feelingLuckyStatus === "loading" ? "" : "is-invisible"} ${
-                  styles.luckyloader
+                  styles.loader
                 }`}
                 alt="loading"></img>
             </button>

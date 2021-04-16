@@ -1,0 +1,46 @@
+.hero {
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  position: relative;
+  color: #f0f2f6;
+  --tw-gradient-to: #7384af;
+  --tw-gradient-from: #3a4e76;
+  --tw-gradient-stops: var(--tw-gradient-from),var(--tw-gradient-to,rgba(45,212,191,0));
+  background-image: linear-gradient(to right,var(--tw-gradient-stops));
+}
+
+.hero .title,
+.hero .description {
+  color: #f0f2f6;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+.stats {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.statbox {
+  border: 1px solid #bec8da;
+  border-radius: 4px;
+  color: #f0f2f6;
+}
+
+.staticon {
+  fill: #f0f2f6;
+}
+
+.language {
+  border: 1px solid #bec8da;
+  border-radius: 4px;
+  background-color: #f0f2f6;
+  color: #7384af;
+}
+
+.language .staticon {
+  fill: #7384af;
+}
