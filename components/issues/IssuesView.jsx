@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
+import GridView from "./views/GridView";
+import ListView from "./views/ListView";
 
 function IssuesView({ list, fetchMore, updateQuery, setIsFirstLoad, viewType }) {
   const loadMore = () => {
@@ -17,17 +19,7 @@ function IssuesView({ list, fetchMore, updateQuery, setIsFirstLoad, viewType }) 
 
   return (
     <div className="container">
-      {list?.totalCount || 0}
-      {viewType}
-      <div>
-        {list.edges.map(({ node }) => {
-          return (
-            <p className="is-size-6" key={node.id}>
-              {node.title}
-            </p>
-          );
-        })}
-      </div>
+      {viewType === "grid" ? <GridView list={list} /> : <ListView list={list} />}
       {list.pageInfo.hasNextPage && (
         <div>
           <button onClick={loadMore} className="button is-primary">

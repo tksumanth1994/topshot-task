@@ -1,0 +1,23 @@
+.card {
+  border-radius: 0;
+  height: 100%;
+}
+
+.number {
+  border-radius: 100%;
+}
+
+.content {
+  height: 100%;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+.avatar {
+  height: 1.7rem;
+  width: auto;
+  border-radius: 100%;
+  margin: 0;
+}

@@ -1,5 +1,6 @@
-import Head from "next/head";
 import PropTypes from "prop-types";
+import Head from "next/head";
+import Link from "next/link";
 import styles from "../../styles/Layout.module.css";
 
 function Layout({ children }) {
@@ -11,57 +12,15 @@ function Layout({ children }) {
       </Head>
       <nav className="navbar has-background-black-ter has-text-white">
         <div className="container">
-          <div className="navbar-brand">
-            <a className="navbar-item brand-text" href="/">
+          <Link className="navbar-brand" href="/">
+            <div className="navbar-item brand-text is-clickable px-0">
               <img className={`mb-1 ${styles.logo}`} src="/logo.svg" alt="search" />
               <span className={`ml-3 has-text-white is-size-5 is-uppercase ${styles.title}`}>
                 Issues Explorer
               </span>
-            </a>
-            <div className="navbar-burger burger" data-target="navMenu">
-              <span></span>
-              <span></span>
-              <span></span>
             </div>
-          </div>
+          </Link>
           <div className="navbar-end">
-            <div className="is-flex is-align-items-center mr-3">
-              <div className="control has-icons-left has-icons-right">
-                <input className="input is-rounded is-small is-info is-hovered" type="input" />
-                <span className="icon is-left">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="has-text-grey-light">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
-                </span>
-                <span className="icon is-right is-clickable" role="button" tabIndex="0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="has-text-grey">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </span>
-              </div>
-            </div>
             <a
               href="https://github.com/axiomzen/cc_Krishna_IssuesExplorerFE"
               target="_blank"

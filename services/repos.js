@@ -1,7 +1,7 @@
 import { AxiosInstance } from ".";
 
 export const getRepos = async () => {
-  // Calculate date for 7 days ago
+  // Calculate date for 30 days ago
   const sevenDaysAgo = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000);
   const formatYear = sevenDaysAgo.getFullYear();
   const formatMonth = ("0" + (sevenDaysAgo.getMonth() + 1)).slice(-2);

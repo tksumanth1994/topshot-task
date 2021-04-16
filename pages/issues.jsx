@@ -104,13 +104,40 @@ export default function Issues() {
         openPullRequests: pullRequests(states: OPEN) {
           totalCount
         }
-        list: issues(first: 50, after: $cursor, states: $issueState, filterBy: $filterBy)
-          @skip(if: $showPR) {
+        list: issues(
+          first: 50
+          after: $cursor
+          states: $issueState
+          filterBy: $filterBy
+          orderBy: { field: UPDATED_AT, direction: DESC }
+        ) @skip(if: $showPR) {
           totalCount
           edges {
             node {
               id
               title
+              url
+              number
+              author {
+                login
+                avatarUrl
+              }
+              updatedAt
+              closedAt
+              comments(first: 0) {
+                totalCount
+              }
+              labels(first: 1) {
+                totalCount
+                edges {
+                  node {
+                    id
+                    name
+                    description
+                    color
+                  }
+                }
+              }
             }
           }
           pageInfo {
@@ -118,13 +145,40 @@ export default function Issues() {
             hasNextPage
           }
         }
-        prList: pullRequests(first: 50, after: $cursor, states: OPEN, labels: $labels)
-          @include(if: $showPR) {
+        prList: pullRequests(
+          first: 50
+          after: $cursor
+          states: OPEN
+          labels: $labels
+          orderBy: { field: UPDATED_AT, direction: DESC }
+        ) @include(if: $showPR) {
           totalCount
           edges {
             node {
               id
               title
+              url
+              number
+              author {
+                login
+                avatarUrl
+              }
+              updatedAt
+              closedAt
+              comments(first: 0) {
+                totalCount
+              }
+              labels(first: 1) {
+                totalCount
+                edges {
+                  node {
+                    id
+                    name
+                    description
+                    color
+                  }
+                }
+              }
             }
           }
           pageInfo {

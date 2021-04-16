@@ -21,19 +21,24 @@ export default function Home() {
   };
 
   const getRepoDetails = async (text) => {
+    await setSearchStatus("loading");
     const details = parseRepo(text);
     if (details && details.repo && details.owner) {
-      await setSearchStatus("loading");
       router.push({
         pathname: "/issues",
         search: "?" + new URLSearchParams(details).toString()
       });
+    } else {
+      await setSearchStatus("");
     }
   };
 
-  const handleInputChange = async (e) => {
-    await setInput(e.target.value || "");
-    getRepoDetails(e.target.value);
+  const handleInputKeyUp = async (e) => {
+    const value = e.target.value || "";
+    await setInput(value);
+    if (e.key === "Enter") {
+      getRepoDetails(value);
+    }
   };
 
   const handleFeelingLucky = async () => {
@@ -77,8 +82,9 @@ export default function Home() {
             <input
               className="input is-rounded is-medium is-info is-hovered"
               type="input"
+              placeholder="Enter Repo URL..."
               ref={inputRef}
-              onChange={handleInputChange}
+              onKeyUp={handleInputKeyUp}
             />
             <span className="icon is-left">
               <svg
@@ -97,32 +103,30 @@ export default function Home() {
               </svg>
             </span>
             <span
-              onClick={handleInputChange}
-              onKeyUp={handleInputChange}
+              onClick={() => getRepoDetails(input)}
+              onKeyUp={() => getRepoDetails(input)}
               className="icon is-right is-clickable"
               role="button"
               tabIndex="0">
               {searchStatus === "loading" ? (
                 <img
-                  src="/loader.svg"
-                  className={`${feelingLuckyStatus === "loading" ? "" : "is-invisible"} ${
-                    styles.loader
-                  }`}
+                  src="/loader-dark.svg"
+                  className={`${searchStatus === "loading" ? "" : "is-invisible"} ${styles.loader}`}
                   alt="loading"></img>
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className={input.length ? "has-text-info" : "has-text-grey"}>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
+                  className={input.length ? "has-text-primary" : "has-text-grey-light"}>
+                  <polyline points="9 10 4 15 9 20"></polyline>
+                  <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
                 </svg>
               )}
             </span>

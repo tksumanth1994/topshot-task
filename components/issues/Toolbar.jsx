@@ -9,7 +9,7 @@ function Toolbar({
   viewType,
   setViewType
 }) {
-  function handleInputKeyDown(e) {
+  function handleInputKeyUp(e) {
     if (e.key === "Enter") {
       handleSetSearchFilters(e.target.value);
     }
@@ -108,7 +108,7 @@ function Toolbar({
         <div className="is-flex is-justify-content-end is-align-items-center">
           <div className="control has-icons-left mr-4">
             <input
-              onKeyDown={handleInputKeyDown}
+              onKeyUp={handleInputKeyUp}
               className="input is-hovered"
               placeholder="Filter issues..."
               type="input"
