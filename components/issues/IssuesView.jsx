@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 
-function IssuesView({ list, fetchMore, updateQuery, setIsFirstLoad }) {
+function IssuesView({ list, fetchMore, updateQuery, setIsFirstLoad, viewType }) {
   const loadMore = () => {
     fetchMore({
       variables: {
@@ -18,6 +18,7 @@ function IssuesView({ list, fetchMore, updateQuery, setIsFirstLoad }) {
   return (
     <div className="container">
       {list?.totalCount || 0}
+      {viewType}
       <div>
         {list.edges.map(({ node }) => {
           return (
@@ -42,7 +43,8 @@ IssuesView.propTypes = {
   list: PropTypes.object,
   fetchMore: PropTypes.func,
   updateQuery: PropTypes.func,
-  setIsFirstLoad: PropTypes.func
+  setIsFirstLoad: PropTypes.func,
+  viewType: PropTypes.string
 };
 
 export default IssuesView;

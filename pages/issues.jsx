@@ -13,6 +13,7 @@ export default function Issues() {
   const { owner = "", repo = "" } = router.query || {};
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [viewType, setViewType] = useState("grid");
   const [searchFilters, setSearchFilters] = useState({});
   const [tabState, setTabState] = useState({
     tabType: "allIssues",
@@ -215,9 +216,12 @@ export default function Issues() {
                   repository={repository}
                   handleSetTabState={handleSetTabState}
                   tabType={tabState.tabType}
-                  handleSetSearchFilters={handleSetSearchFilters}></Toolbar>
+                  handleSetSearchFilters={handleSetSearchFilters}
+                  viewType={viewType}
+                  setViewType={setViewType}></Toolbar>
                 <IssuesView
                   loading={loading}
+                  viewType={viewType}
                   list={repository.prList || repository.list}
                   fetchMore={fetchMore}
                   updateQuery={updateQuery}

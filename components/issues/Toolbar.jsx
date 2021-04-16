@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import styles from "../../styles/Toolbar.module.css";
 
-function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilters }) {
+function Toolbar({
+  repository,
+  tabType,
+  handleSetTabState,
+  handleSetSearchFilters,
+  viewType,
+  setViewType
+}) {
   function handleInputKeyDown(e) {
     if (e.key === "Enter") {
       handleSetSearchFilters(e.target.value);
@@ -14,7 +21,7 @@ function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilter
         <div className="tabs is-toggle is-right mb-0">
           <ul>
             <li className={tabType === "allIssues" ? `is-active ${styles.active}` : styles.tab}>
-              <a role="link" onClick={() => handleSetTabState("allIssues")}>
+              <a onClick={() => handleSetTabState("allIssues")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -34,7 +41,7 @@ function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilter
               </a>
             </li>
             <li className={tabType === "openIssues" ? `is-active ${styles.active}` : styles.tab}>
-              <a role="link" onClick={() => handleSetTabState("openIssues")}>
+              <a onClick={() => handleSetTabState("openIssues")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -54,7 +61,7 @@ function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilter
               </a>
             </li>
             <li className={tabType === "closedIssues" ? `is-active ${styles.active}` : styles.tab}>
-              <a role="link" onClick={() => handleSetTabState("closedIssues")}>
+              <a onClick={() => handleSetTabState("closedIssues")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -77,7 +84,7 @@ function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilter
               className={
                 tabType === "openPullRequests" ? `is-active ${styles.active}` : styles.tab
               }>
-              <a role="link" onClick={() => handleSetTabState("openPullRequests")}>
+              <a onClick={() => handleSetTabState("openPullRequests")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -125,8 +132,8 @@ function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilter
           </div>
           <div className="tabs is-toggle is-right">
             <ul>
-              <li className={`is-active ${styles.active}`}>
-                <a>
+              <li className={viewType === "grid" ? `is-active ${styles.active}` : styles.tab}>
+                <a onClick={() => setViewType("grid")}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="22"
@@ -145,8 +152,8 @@ function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilter
                   <span></span>
                 </a>
               </li>
-              <li className={styles.tab}>
-                <a>
+              <li className={viewType === "list" ? `is-active ${styles.active}` : styles.tab}>
+                <a onClick={() => setViewType("list")}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="22"
@@ -177,7 +184,9 @@ Toolbar.propTypes = {
   repository: PropTypes.object,
   tabType: PropTypes.string,
   handleSetTabState: PropTypes.func,
-  handleSetSearchFilters: PropTypes.func
+  handleSetSearchFilters: PropTypes.func,
+  viewType: PropTypes.string,
+  setViewType: PropTypes.func
 };
 
 export default Toolbar;
