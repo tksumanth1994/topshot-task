@@ -69,7 +69,7 @@ function ListView({ list }) {
               <div className="column is-2 is-flex is-justify-content-start is-align-items-center">
                 <img
                   className={`is-flex is-justify-content-start is-align-items-end ${styles.avatar}`}
-                  src={node.author.avatarUrl}
+                  src={node?.author?.avatarUrl}
                   alt="Author"
                 />
                 <p className="ml-2">@{node?.author?.login || ""}</p>

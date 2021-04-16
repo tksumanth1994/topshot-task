@@ -13,14 +13,14 @@ function Layout({ children }) {
       <nav className="navbar has-background-black-ter has-text-white">
         <div className="container">
           <Link className="navbar-brand" href="/">
-            <div className="navbar-item brand-text is-clickable px-0">
+            <div className="navbar-item brand-text is-clickable is-flex is-align-items-center">
               <img className={`mb-1 ${styles.logo}`} src="/logo.svg" alt="search" />
               <span className={`ml-3 has-text-white is-size-5 is-uppercase ${styles.title}`}>
                 Issues Explorer
               </span>
             </div>
           </Link>
-          <div className="navbar-end">
+          <div className="navbar-end is-hidden-touch">
             <a
               href="https://github.com/axiomzen/cc_Krishna_IssuesExplorerFE"
               target="_blank"

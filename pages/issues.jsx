@@ -6,6 +6,9 @@ import Layout from "../components/layout/Layout";
 import Header from "../components/issues/Header";
 import Toolbar from "../components/issues/Toolbar";
 import IssuesView from "../components/issues/IssuesView";
+import Loading from "../components/issues/states/Loading";
+import Error from "../components/issues/states/Error";
+import Empty from "../components/issues/states/Empty";
 
 export default function Issues() {
   const router = useRouter();
@@ -78,7 +81,6 @@ export default function Issues() {
       $issueState: [IssueState!]
       $showPR: Boolean!
       $filterBy: IssueFilters
-      $labels: [String!]
     ) {
       repository(owner: $owner, name: $repo) {
         name
@@ -149,7 +151,6 @@ export default function Issues() {
           first: 50
           after: $cursor
           states: OPEN
-          labels: $labels
           orderBy: { field: UPDATED_AT, direction: DESC }
         ) @include(if: $showPR) {
           totalCount
@@ -234,31 +235,30 @@ export default function Issues() {
             repo,
             issueState: tabState.issueState,
             showPR: tabState.tabType === "openPullRequests",
-            filterBy: searchFilters,
-            labels: searchFilters?.labels || []
+            filterBy: searchFilters
           }}
           notifyOnNetworkStatusChange={true}>
           {({ data, loading, error, fetchMore }) => {
             console.log("🚀 ~ file: issues.jsx ~ line 41 ~ Issues ~ loading", loading);
             if (error) {
-              return "Error";
+              return <Error owner={owner} repo={repo} />;
             }
             console.log("🚀 ~ file: issues.jsx ~ line 40 ~ Issues ~ error", error);
 
             const { repository } = data || {};
 
             if (loading && isFirstLoad) {
-              return "Loading";
+              return <Loading owner={owner} repo={repo} />;
             }
 
             console.log("🚀 ~ file: issues.jsx ~ line 48 ~ Issues ~ data", data);
 
             if (!repository) {
-              return `No repo found or enterprise plan https://github.com/${owner}/${repo}`;
+              return <Empty owner={owner} repo={repo} isRepoEmpty={true} />;
             }
 
             if (!repository.totalIssues) {
-              return `No issues found https://github.com/${owner}/${repo}`;
+              return <Empty owner={owner} repo={repo} isIssuesEmpty={true} />;
             }
 
             console.log("🚀 ~ file: issues.jsx ~ line 47 ~ Issues ~ data", data);
@@ -272,7 +272,8 @@ export default function Issues() {
                   tabType={tabState.tabType}
                   handleSetSearchFilters={handleSetSearchFilters}
                   viewType={viewType}
-                  setViewType={setViewType}></Toolbar>
+                  setViewType={setViewType}
+                  loading={loading}></Toolbar>
                 <IssuesView
                   loading={loading}
                   viewType={viewType}

@@ -1,0 +1,24 @@
+.hero {
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  position: relative;
+  color: #f0f2f6;
+  --tw-gradient-to: #7384af;
+  --tw-gradient-from: #3a4e76;
+  --tw-gradient-stops: var(--tw-gradient-from),var(--tw-gradient-to,rgba(45,212,191,0));
+  background-image: linear-gradient(to right,var(--tw-gradient-stops));
+  min-height: 7.375rem;
+}
+
+.loader {
+  height: 8rem;
+  width: auto;
+}
+
+.text {
+  margin-top: -1.5rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

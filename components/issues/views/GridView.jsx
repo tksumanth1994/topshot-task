@@ -9,10 +9,12 @@ function GridView({ list }) {
   const timeAgo = new TimeAgo("en-US");
 
   return (
-    <div className="columns is-mobile is-multiline">
+    <div className={`columns is-mobile is-multiline ${styles.isgaplessmobile}`}>
       {list.edges.map(({ node }) => {
         return (
-          <div className="column is-3" key={node.id}>
+          <div
+            className="column is-12-mobile is-6-tablet is-4-desktop is-3-widescreen"
+            key={node.id}>
             <div className={`card ${styles.card}`}>
               <div
                 className={`card-content is-flex is-flex-direction-column is-justify-content-space-between ${styles.content}`}>
@@ -90,7 +92,7 @@ function GridView({ list }) {
                   <div>
                     <img
                       className={`is-flex is-justify-content-start is-align-items-end ${styles.avatar}`}
-                      src={node.author.avatarUrl}
+                      src={node?.author?.avatarUrl}
                       alt="Author"
                     />
                   </div>
