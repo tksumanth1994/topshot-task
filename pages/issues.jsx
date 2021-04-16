@@ -13,10 +13,41 @@ export default function Issues() {
   const { owner = "", repo = "" } = router.query || {};
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [searchFilters, setSearchFilters] = useState({});
   const [tabState, setTabState] = useState({
     tabType: "allIssues",
     issueState: undefined
   });
+
+  async function handleSetSearchFilters(searchText) {
+    console.log(
+      "🚀 ~ file: issues.jsx ~ line 23 ~ handleSetSearchFilters ~ searchText",
+      searchText
+    );
+    const finalFilters = {};
+    const values = (searchText || "")
+      .trim()
+      .split(" ")
+      .map((t) => (t || "").trim().split(":"))
+      .filter((t) => t.length === 2);
+
+    values.forEach((value) => {
+      if (value[0] === "label") {
+        if (finalFilters.labels) {
+          finalFilters.labels.push(value[1]);
+        } else {
+          finalFilters.labels = [value[1]];
+        }
+      } else {
+        finalFilters[value[0]] = value[1];
+      }
+    });
+    console.log(
+      "🚀 ~ file: issues.jsx ~ line 51 ~ handleSetSearchFilters ~ finalFilters",
+      finalFilters
+    );
+    await setSearchFilters(finalFilters);
+  }
 
   async function handleSetTabState(tab) {
     console.log("🚀 ~ file: issues.jsx ~ line 20 ~ handleSetTabType ~ tab", tab);
@@ -45,6 +76,8 @@ export default function Issues() {
       $cursor: String
       $issueState: [IssueState!]
       $showPR: Boolean!
+      $filterBy: IssueFilters
+      $labels: [String!]
     ) {
       repository(owner: $owner, name: $repo) {
         name
@@ -70,7 +103,8 @@ export default function Issues() {
         openPullRequests: pullRequests(states: OPEN) {
           totalCount
         }
-        list: issues(first: 50, after: $cursor, states: $issueState) @skip(if: $showPR) {
+        list: issues(first: 50, after: $cursor, states: $issueState, filterBy: $filterBy)
+          @skip(if: $showPR) {
           totalCount
           edges {
             node {
@@ -83,7 +117,8 @@ export default function Issues() {
             hasNextPage
           }
         }
-        prList: pullRequests(first: 50, after: $cursor, states: OPEN) @include(if: $showPR) {
+        prList: pullRequests(first: 50, after: $cursor, states: OPEN, labels: $labels)
+          @include(if: $showPR) {
           totalCount
           edges {
             node {
@@ -143,7 +178,9 @@ export default function Issues() {
             owner,
             repo,
             issueState: tabState.issueState,
-            showPR: tabState.tabType === "openPullRequests"
+            showPR: tabState.tabType === "openPullRequests",
+            filterBy: searchFilters,
+            labels: searchFilters?.labels || []
           }}
           notifyOnNetworkStatusChange={true}>
           {({ data, loading, error, fetchMore }) => {
@@ -177,7 +214,8 @@ export default function Issues() {
                 <Toolbar
                   repository={repository}
                   handleSetTabState={handleSetTabState}
-                  tabType={tabState.tabType}></Toolbar>
+                  tabType={tabState.tabType}
+                  handleSetSearchFilters={handleSetSearchFilters}></Toolbar>
                 <IssuesView
                   loading={loading}
                   list={repository.prList || repository.list}

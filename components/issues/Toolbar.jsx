@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import styles from "../../styles/Toolbar.module.css";
 
-function Toolbar({ repository, tabType, handleSetTabState }) {
+function Toolbar({ repository, tabType, handleSetTabState, handleSetSearchFilters }) {
+  function handleInputKeyDown(e) {
+    if (e.key === "Enter") {
+      handleSetSearchFilters(e.target.value);
+    }
+  }
+
   return (
     <div className="container py-5">
       <div className="is-flex is-justify-content-space-between is-align-items-center">
@@ -94,7 +100,12 @@ function Toolbar({ repository, tabType, handleSetTabState }) {
         </div>
         <div className="is-flex is-justify-content-end is-align-items-center">
           <div className="control has-icons-left mr-4">
-            <input className="input is-hovered" placeholder="Filter issues..." type="input" />
+            <input
+              onKeyDown={handleInputKeyDown}
+              className="input is-hovered"
+              placeholder="Filter issues..."
+              type="input"
+            />
             <span className="icon is-left">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +176,8 @@ function Toolbar({ repository, tabType, handleSetTabState }) {
 Toolbar.propTypes = {
   repository: PropTypes.object,
   tabType: PropTypes.string,
-  handleSetTabState: PropTypes.func
+  handleSetTabState: PropTypes.func,
+  handleSetSearchFilters: PropTypes.func
 };
 
 export default Toolbar;
