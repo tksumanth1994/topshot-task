@@ -1,34 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Issues Explorer Task
 
-## Getting Started
+### Demo URL:
 
-First, run the development server:
+[https://topshot-task.vercel.app/](https://topshot-task.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### QnA Answered:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[QnA Link](https://github.com/axiomzen/cc_Krishna_IssuesExplorerFE/blob/main/problem_statement/QnA.md)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Problem Statement:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+[Problem Statement Link](https://github.com/axiomzen/cc_Krishna_IssuesExplorerFE/tree/main/problem_statement)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Features Built:
 
-## Learn More
+1. User can enter any GitHub repo URL and check all its issues and pull requests.
+2. User can click on "I'm Feeling Lucky" button and see issues of a random GitHub repo.
+3. User can see basic details about the repo on the top.
+4. User can toggle with between 4 categories - All Issues, Open Issues, Closed Issues, Pull Requests.
+5. User can also view the count of issues/pull requests in each of the categories.
+6. User can filter issues using search bar. The syntax is similar to [Github search syntax](https://docs.github.com/en/github/searching-for-information-on-github/understanding-the-search-syntax).
+7. User can toggle between Grid and List views for the results.
+8. User can scroll down and load more results.
+9. User can use the product in any mobile device as well.
 
-To learn more about Next.js, take a look at the following resources:
+### Product Screenshots:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![image](https://user-images.githubusercontent.com/4353562/115087180-585f9000-9f2b-11eb-8ffe-e1284709673c.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![image](https://user-images.githubusercontent.com/4353562/115087250-72996e00-9f2b-11eb-8e96-cf2a9d63141f.png)
 
-## Deploy on Vercel
+### Stack Used:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Deployment:**
+- [Vercel](https://vercel.com/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Core Framework:**
+- [Next.js](https://nextjs.org/)
+
+**Static Checking:**
+- [EsLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+
+**CSS Framework:**
+- [Bulma](https://bulma.io/)
+
+**CSS Pre-processor:**
+- [SASS](https://sass-lang.com/)
+
+**API Clients:**
+- [Axios](https://github.com/axios/axios)
+- [Apollo Client](https://www.apollographql.com/docs/react/)
+
+_Note: Both API Clients are used deliberately to show the code strcuture possibilities for the task. In actual project, ideally, only one of them should be used._
+
+### Folder Structure:
+
+- `pages` - Contains all route pages
+- `components` - Contains all components grouped by usecases & routes.
+- `styles` - Contains all global and modular css styles.
+- `services` - Folder structure for Axios API routes.
+
+### Run Locally:
+
+1. Clone repo locally. Then,
+2. `cd cc_Krishna_IssuesExplorerFE`
+3. `npm install`
+4. Create a `.env.local` file by copying `.env` file. Add GitHub key from [here](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line).
+5. `npm run dev`
+6. Open `http://localhost:3000` in your browser.
